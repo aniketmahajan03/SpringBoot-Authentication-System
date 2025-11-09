@@ -1,25 +1,27 @@
-# Use OpenJDK 17 base image
+# Use OpenJDK 17 base image for building
 FROM eclipse-temurin:17-jdk-alpine AS build
 
-# Set working directory
 WORKDIR /app
 
-# Copy Maven wrapper and project files
+# Copy project files
 COPY . .
 
-# Build the project (skipping tests for faster build)
+# Give execute permission to mvnw
+RUN chmod +x mvnw
+
+# Build the application (skip tests for speed)
 RUN ./mvnw clean package -DskipTests
 
-# Use a smaller JDK image for runtime
+# Use a smaller image for running the app
 FROM eclipse-temurin:17-jdk-alpine
 
 WORKDIR /app
 
-# Copy the built jar from the previous build stage
+# Copy the built jar from the build stage
 COPY --from=build /app/target/*.jar app.jar
 
-# Expose port 8080
+# Expose port
 EXPOSE 8080
 
-# Run the application
+# Run the jar
 ENTRYPOINT ["java", "-jar", "app.jar"]

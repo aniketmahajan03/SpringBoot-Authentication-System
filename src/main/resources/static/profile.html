@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e7b897;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .profile-card {
+      width: 350px;
+      padding: 20px;
+      border-radius: 15px;
+      background: #ffffff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .profile-card h2 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .profile-card p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    .profile-card img {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-card">
+    <img src="https://placemonkeys.com/150/150?random" alt="Profile Picture" class="profile-pic">
+    <h2 id="fullName">Full Name</h2>
+    <p><strong>Username:</strong> <span id="username"></span></p>
+    <p><strong>Role:</strong> <span id="role"></span></p>
+    <p><strong>Token Expires:</strong> <span id="expiry"></span></p>
+  </div>
+
+  <script>
+    const token = localStorage.getItem("token");
+    if(token) {
+      const payload = JSON.parse(atob(token.split('.')[1])); // decode JWT payload
+      document.getElementById("username").innerText = payload.sub;
+      document.getElementById("role").innerText = payload.roles.join(', ');
+
+  const expDate = new Date(payload.exp * 1000);
+
+// Adjust to local time
+document.getElementById("expiry").innerText = expDate.toLocaleString([], {
+  year: "numeric",
+  month: "numeric",
+  day: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hour12: true,
+  timeZoneName: "short" // optional, shows IST or your local zone
+});
+
+
+      document.getElementById("expiry").innerText = expDate.toLocaleString("en-US", options);
+
+      document.getElementById("fullName").innerText = "Welcome, " + payload.sub + " 😎";
+    } else {
+      alert("No user logged in!");
+      window.location.href = "login.html"; // redirect to login if no token
+    }
+  </script>
+</body>
+</html>
+

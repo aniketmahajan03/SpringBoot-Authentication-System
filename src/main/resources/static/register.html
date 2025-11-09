@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        /* Full-screen centered layout */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e0e75b, #fce867);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Card container */
+        .register-card {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            width: 350px;
+            text-align: center;
+        }
+
+        .register-card h2 {
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        /* Input styling */
+        .register-card input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        /* Button styling */
+        .register-card button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background: #7775ff;
+            color: rgb(121, 78, 78);
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .register-card button:hover {
+            background: #4114e3;
+        }
+
+        /* Message styling */
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="register-card">
+    <h2>Register</h2>
+    <form id="registerForm">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Register</button>
+    </form>
+    <p id="message"></p>
+</div>
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const data = {
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value
+        };
+
+        try {
+            const res = await fetch("/register", {  // Use relative path if server is same origin
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            const text = await res.text();
+            document.getElementById("message").innerText = res.ok
+                ? "✅ User registered successfully!"
+                : "❌ Error: " + text;
+        } catch (err) {
+            document.getElementById("message").innerText = "❌ Network error: " + err.message;
+        }
+    });
+</script>
+
+</body>
+</html>
+

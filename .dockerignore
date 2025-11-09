@@ -1,0 +1,12 @@
+# Ignore build output
+target/
+
+# Ignore IDE and OS files
+.vscode/
+*.iml
+.idea/
+*.log
+.DS_Store
+
+# Ignore original jars from Spring Boot
+*.jar.original

@@ -32,50 +32,5 @@ authentication-system/
   ├─ src/
   ├─ pom.xml
   └─ README.md
-▶️ How to Run
 
-Clone repo
-
-Configure DB in application.properties
-
-Run the Spring Boot app
-
-Use Postman for testing authentication APIs
-
-🔗 API Documentation
-
-(Add Swagger / Postman link if available)
-
-📚 4. Database & SQL Practice Notes
-🗂️ SQL Practice Repository
-
-A comprehensive collection of SQL notes including table creation, joins, functions, grouping, date functions, PL/SQL programs, and advanced queries.
-
-📘 Contents
-
-Table creation scripts
-
-Basic to advanced SELECT queries
-
-Joins (INNER, LEFT, RIGHT, FULL)
-
-String functions (MID, ROUND, etc.)
-
-Date functions
-
-PL/SQL blocks & procedures
-
-Subqueries
-
-Normalization notes
-
-🛠️ Tech Stack
-
-MySQL
-
-Oracle SQL
-
-▶️ How to Use
-
-Simply open .sql or .md files and execute queries in your SQL editor.
 
